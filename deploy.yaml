@@ -1,13 +1,12 @@
 ---
 - name: Ansible Copy Local to Remote
   hosts: dev_server:stage_server:prod_server
-  become: true
+  become: false
   vars:
     src_path: "{{ workspace_path }}/webapp/target/webapp.war"
     dest_path: "/var/lib/tomcat/webapps"
   tasks:
     - name: copying file with playbook
-      become: true
       copy:
         src: "{{ src_path }}"
         dest: "{{ dest_path }}/webapp.war"
