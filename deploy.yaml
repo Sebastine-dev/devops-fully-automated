@@ -12,6 +12,7 @@
         group: ansadmin
         mode: "0644"
 
+
 #- name: Ansible Copy Local to Remote
 #  hosts: "{{hosts}}"
 #  vars:
