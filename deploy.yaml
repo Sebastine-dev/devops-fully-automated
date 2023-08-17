@@ -6,10 +6,17 @@
     src_path: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
     dest_path: "/var/lib/tomcat/webapps"
   tasks:
-    - name: copying file with playbook
-      copy:
+    - name: Copy file using SCP
+      ansible.builtin.synchronize:
         src: "{{ src_path }}"
         dest: "{{ dest_path }}/webapp.war"
-        owner: ansadmin
-        group: ansadmin
-        mode: 0644
+        mode: push
+      become_user: ansadmin
+      become: true
+      become_method: sudo
+      # Optional: Set ownership and permissions
+      # file:
+      #   path: "{{ dest_path }}/webapp.war"
+      #   owner: ansadmin
+      #   group: ansadmin
+      #   mode: '0644'
