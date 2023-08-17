@@ -3,9 +3,13 @@ all:
     dev_server:
       ansible_host: 10.0.0.42
       ansible_user: ansadmin
+      tags: tag_Environment_dev
     stage_server:
       ansible_host: 10.0.0.43
       ansible_user: ansadmin
+      tags: tag_Environment_stage
     prod_server:
       ansible_host: 10.0.0.44
       ansible_user: ansadmin
+      tags: tag_Environment_prod
+
