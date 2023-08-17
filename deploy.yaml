@@ -1,6 +1,6 @@
 ---
 - name: Deploy to Environments
-  hosts: "{{hosts}}"
+  hosts: dev_server:stage_server:prod_server  # Run the playbook on all environments
   become: true
 
   tasks:
