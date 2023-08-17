@@ -5,9 +5,9 @@
 
   tasks:
     - name: Ansible Copy Local to Remote
-      ansible.builtin.copy:
-        src: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
-        dest: "/var/lib/tomcat/webapps/webapp.war"
+      ansible.builtin.shell: cp /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war /var/lib/tomcat/webapps/webapp.war
+#        src: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
+#        dest: "/var/lib/tomcat/webapps/webapp.war"
         owner: ansadmin
         group: ansadmin
         mode: "0644"
