@@ -1,18 +1,16 @@
 ---
 - name: Deploy to Environments
-  hosts: all
+  hosts: "{{ hosts }}"
   become: true
 
   tasks:
     - name: Ansible Copy Local to Remote
-      hosts: "{{ hosts }}"
       copy:
         src: "{{ workspace_path }}/webapp/target/webapp.war"
         dest: "/var/lib/tomcat/webapps/webapp.war"
         owner: ansadmin
         group: ansadmin
         mode: "0644"
-        
 
 #- name: Ansible Copy Local to Remote
 #  hosts: "{{hosts}}"
