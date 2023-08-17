@@ -3,7 +3,7 @@
   hosts: dev_server:stage_server:prod_server
   become: false
   vars:
-    src_path: "{{ workspace_path }}/webapp/target/webapp.war"
+    src_path: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
     dest_path: "/var/lib/tomcat/webapps"
   tasks:
     - name: copying file with playbook
