@@ -11,6 +11,10 @@
         owner: ansadmin
         group: ansadmin
         mode: "0644"
+      register: copy_result
+    - name: Debug Copy Result
+      debug:
+        var: copy_result
 
 #- name: Ansible Copy Local to Remote
 #  hosts: "{{hosts}}"
