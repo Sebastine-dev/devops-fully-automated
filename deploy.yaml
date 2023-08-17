@@ -1,17 +1,18 @@
 ---
 - name: Deploy to Environments
-  hosts: dev_server:stage_server:prod_server  # Run the playbook on all environments
+  hosts: dev_server:stage_server:prod_server
   become: true
 
   tasks:
     - name: Ansible Copy Local to Remote
-      ansible.builtin.shell: cp /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war /var/lib/tomcat/webapps/webapp.war
-#        src: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
-#        dest: "/var/lib/tomcat/webapps/webapp.war"
+      ansible.builtin.copy:
+        src: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
+        dest: "/var/lib/tomcat/webapps/webapp.war"
         owner: ansadmin
         group: ansadmin
         mode: "0644"
       register: copy_result
+
     - name: Debug Copy Result
       debug:
         var: copy_result
