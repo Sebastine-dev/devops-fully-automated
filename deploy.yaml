@@ -20,3 +20,20 @@
       #   owner: ansadmin
       #   group: ansadmin
       #   mode: '0644'
+tasks:
+  - name: Show source file details
+    debug:
+      msg: "Source file attributes: {{ lookup('file', src_path) }}"
+
+  - name: Copy file using SCP
+    ansible.builtin.synchronize:
+      src: "{{ src_path }}"
+      dest: "{{ dest_path }}/webapp.war"
+      mode: push
+    become_user: ansadmin
+    become: true
+    become_method: sudo
+
+  - name: Show destination file details
+    debug:
+      msg: "Destination file attributes: {{ lookup('file', dest_path + '/webapp.war') }}"
