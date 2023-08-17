@@ -4,8 +4,16 @@
   become: false
   vars:
     src_path: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
-    dest_path: "/var/lib/tomcat/webapps"
+    dest_path: "/var/lib/tomcat"  # Adjust this path to the parent directory
   tasks:
+    - name: Ensure destination directory exists
+      ansible.builtin.file:
+        path: "{{ dest_path }}"
+        state: directory
+        mode: '0755'
+        owner: ansadmin
+        group: ansadmin
+
     - name: Copy file using SCP
       ansible.builtin.synchronize:
         src: "{{ src_path }}"
