@@ -109,7 +109,7 @@ pipeline {
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'ansible-deploy-server-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
-                    sh "ansible-playbook -i /var/lib/jenkins/workspace/app-cicd-pipeline/ansible-setup/aws_ec2.yaml /var/lib/jenkins/workspace/app-cicd-pipeline/deploy.yaml --extra-vars 'ansible_user=$USER_NAME ansible_password=$PASSWORD' --tags tag_Environment_stage --limit stage_server"
+                    sh "ansible stage_dev -m copy -a "src=/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war dest=/var/lib/tomcat/webapps owner=ansadmin group=ansadmin mode=0644""
                 }
             }
         }
