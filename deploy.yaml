@@ -1,24 +1,33 @@
 ---
-- name: Ansible Copy Local to Remote
-  hosts: dev_server:stage_server:prod_server
-  become: false
-  vars:
-    src_path: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
-    dest_path: "/var/lib/tomcat"  # Adjust this path to the parent directory
+- name: Deploy Application
+  hosts: all  # You can replace 'all' with a specific group if needed
+  become: true
+  gather_facts: false
+
   tasks:
-    - name: Ensure destination directory exists
-      ansible.builtin.file:
-        path: "{{ dest_path }}"
-        state: directory
-        mode: '0755'
+    - name: Copy WAR file to Tomcat webapps
+      copy:
+        src: /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war
+        dest: /var/lib/tomcat/webapps
         owner: ansadmin
         group: ansadmin
+        mode: '0644'
+      when: inventory_hostname in groups['dev_host']
 
-    - name: Copy file using SCP
-      ansible.builtin.synchronize:
-        src: "{{ src_path }}"
-        dest: "{{ dest_path }}/webapp.war"
-        mode: push
-      become_user: ansadmin
-      become: true
-      become_method: sudo
+    - name: Copy WAR file to Tomcat webapps
+      copy:
+        src: /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war
+        dest: /var/lib/tomcat/webapps
+        owner: ansadmin
+        group: ansadmin
+        mode: '0644'
+      when: inventory_hostname in groups['stage_host']
+
+    - name: Copy WAR file to Tomcat webapps
+      copy:
+        src: /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war
+        dest: /var/lib/tomcat/webapps
+        owner: ansadmin
+        group: ansadmin
+        mode: '0644'
+      when: inventory_hostname in groups['prod_host']
