@@ -1,6 +1,6 @@
 ---
 - name: Deploy Application
-  hosts: all  # You can replace 'all' with a specific group if needed
+  hosts: all
   become: true
   gather_facts: false
 
@@ -12,22 +12,4 @@
         owner: ansadmin
         group: ansadmin
         mode: '0644'
-      when: inventory_hostname in groups['dev_host']
-
-    - name: Copy WAR file to Tomcat webapps
-      copy:
-        src: /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war
-        dest: /var/lib/tomcat/webapps
-        owner: ansadmin
-        group: ansadmin
-        mode: '0644'
-      when: inventory_hostname in groups['stage_host']
-
-    - name: Copy WAR file to Tomcat webapps
-      copy:
-        src: /var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war
-        dest: /var/lib/tomcat/webapps
-        owner: ansadmin
-        group: ansadmin
-        mode: '0644'
-      when: inventory_hostname in groups['prod_host']
+      when: inventory_hostname in groups[environment]
