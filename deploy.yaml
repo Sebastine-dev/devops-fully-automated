@@ -3,7 +3,7 @@
   become: true
   vars:
     src_path: "/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war"
-    dest_path: "/var/lib/tomcat"  # Adjust this path to the parent directory
+    dest_path: "/var/lib/tomcat/webapps"  # Adjust this path to the parent directory
   tasks:
     - name: Copy the file to remote servers
       ansible.builtin.copy:
