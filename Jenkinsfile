@@ -109,7 +109,7 @@ pipeline {
             }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'ansible-deploy-server-credentials', passwordVariable: 'PASSWORD', usernameVariable: 'USER_NAME')]) {
-                    sh "ansible stage_host -m copy -a "src=/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war dest=/var/lib/tomcat/webapps owner=ansadmin group=ansadmin mode=0644""
+                    sh "ansible stage_host -m copy -a 'src=/var/lib/jenkins/workspace/app-cicd-pipeline/webapp/target/webapp.war dest=/var/lib/tomcat/webapps owner=ansadmin group=ansadmin mode=0644'"
                 }
             }
         }
